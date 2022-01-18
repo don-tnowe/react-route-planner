@@ -1,0 +1,54 @@
+body {
+    background-color: rgb(214, 214, 214);
+}
+
+#content {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    display: block;
+    text-align: center;
+}
+
+#centered-all {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.flex-combiner {
+    display: flex;
+}
+
+.solid-panel {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 15px 0px rgb(77, 123, 223);
+}
+
+#route-points {
+    width: 200px;
+    text-align: left;
+    margin-right: 25px;
+}
+
+.route-point-edit {
+    border: none;
+    cursor: text;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    padding: 3px;
+    width: 95%;
+}
+
+#route-new-point {
+    color: rgba(0, 0, 0, 0.5);
+    font-style: italic;
+}
+
+#map-container {
+    width: 300px;
+    height: 300px;
+    margin-right: 25px;
+    padding: 5px;
+}
