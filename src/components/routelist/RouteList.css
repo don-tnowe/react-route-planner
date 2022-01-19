@@ -1,0 +1,42 @@
+
+.route-point {
+  font-size: 16px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+.route-point div {
+  font-size: 16px;
+  display: inline-block;
+  margin: 2px;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+input {
+  border: none;
+  cursor: text;
+  font-size: 16px;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-bottom: 2px;
+  padding: 6px;
+}
+
+input:hover {
+  box-shadow: 0 0 5px 0px rgb(77, 123, 223) inset;
+}
+
+.route-new-point {
+  margin-top: 5px;
+  width: 178px;
+}
+
+.route-point-edit input {
+  width: 142px;
+}
+
+.route-new-point::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+}
