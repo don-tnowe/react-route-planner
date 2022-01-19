@@ -13,8 +13,6 @@ export const RouteList = () => {
   const addPoint = (name) => {
     if (!name)
       return;
-    console.log(pointCount);
-    console.log(getNewPointColor(pointCount));
     setPointCount(pointCount + 1)
     setPoints(
       [{ key: pointCount, name: name, color: getNewPointColor(pointCount) }, ...points]
@@ -53,7 +51,7 @@ export const RouteList = () => {
         <RoutePointEdit
           key={x.key}
           point={x}
-          onChange={setSelectionText}
+          onChange={setSelectionText} 
           onMouseLeave={() => setSelected(-1)}
           onDelete={deleteSelectedPoint}
         />

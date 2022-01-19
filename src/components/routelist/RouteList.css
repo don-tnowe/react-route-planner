@@ -20,20 +20,26 @@ input {
   margin-left: 5px;
   margin-right: 10px;
   margin-bottom: 2px;
-  padding: 6px;
+  padding: 5px;
 }
 
 input:hover {
-  box-shadow: 0 0 5px 0px rgb(77, 123, 223) inset;
+  box-shadow: 0 0 5px 0px #4d7bdf inset;
 }
 
 .route-new-point {
-  margin-top: 5px;
+  margin: 5px;
   width: 178px;
 }
 
+.route-point-edit {
+  display:flex;
+  margin-bottom: 3px;
+}
+
 .route-point-edit input {
-  width: 142px;
+  width: 120px;
+  margin: 0 5px 0 5px;
 }
 
 .route-new-point::placeholder {

@@ -27,6 +27,15 @@ input:active {
     border: none;
 }
 
+.icon-button {
+    cursor: pointer;
+    height: 20px;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    width: 20px;
+}
+
 #route-container {
     width: 200px;
     height: 300px;

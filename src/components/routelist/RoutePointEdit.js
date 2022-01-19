@@ -1,12 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { IconButton } from '../IconButton.js';
 
 export const RoutePointEdit = ({ point, onChange, onMouseLeave, onDelete }) => (
   <div
     className='route-point-edit'
     onMouseLeave={onMouseLeave}
   >
-    <FontAwesomeIcon icon={faArrowsAlt} color={point.color} />
+    <IconButton
+      icon={faArrowsAlt}
+      color={point.color}
+    />
     <input
       type='text'
       defaultValue={point.name}
@@ -17,11 +20,10 @@ export const RoutePointEdit = ({ point, onChange, onMouseLeave, onDelete }) => (
         }
       }}
     />
-    <FontAwesomeIcon
+    <IconButton
       icon={faTrash}
-      color='#000'
+      color='#d00'
       onClick={onDelete}
-
     />
   </div>
 )

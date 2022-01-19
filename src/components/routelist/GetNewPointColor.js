@@ -1,3 +1,5 @@
+import rgbHex from 'rgb-hex';
+
 export const getNewPointColor = (count) => {
   const h = (count % 12) / 12;
   const s = 0.5 + Math.random() * 0.5;
@@ -20,9 +22,5 @@ export const getNewPointColor = (count) => {
     g = hue2rgb(p, q, h);
     b = hue2rgb(p, q, h - 1 / 3);
   }
-  const toHex = function (x) {
-    const hex = Math.round(x * 255).toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
-  };
-  return '#' + toHex(r) + toHex(g) + toHex(b);
+  return '#' + rgbHex(r * 256, g * 256, b * 256);
 }
