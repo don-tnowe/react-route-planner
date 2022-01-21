@@ -6,7 +6,7 @@ export const IconButton = ({ color, icon, onClick }) => {
   return (
     <div
       className='icon-button'
-      onClick={onClick}
+      onMouseDown={onClick}
       style={{
         backgroundColor: color,
         boxShadow: '0 0 5px 0px ' + color,

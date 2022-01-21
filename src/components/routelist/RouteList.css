@@ -2,7 +2,7 @@
 .route-point {
   font-size: 16px;
   margin-right: 5px;
-  margin-bottom: 2px;
+  padding-bottom: 2px;
 }
 
 .route-point div {
@@ -29,7 +29,18 @@ input:hover {
 
 .route-new-point {
   margin: 5px;
+  margin-bottom: 10px;
   width: 178px;
+}
+
+.route-new-point::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+}
+
+.route-list-box-dragged div {
+  user-select: none;
+  cursor: grabbing;
 }
 
 .route-point-edit {
@@ -40,9 +51,4 @@ input:hover {
 .route-point-edit input {
   width: 120px;
   margin: 0 5px 0 5px;
-}
-
-.route-new-point::placeholder {
-  color: rgba(0, 0, 0, 0.5);
-  font-style: italic;
 }

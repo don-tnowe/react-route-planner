@@ -4,7 +4,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 export const RouteListItem = ({ point, selectCallback }) => (
   <div
     className='route-point'
-    onMouseEnter={selectCallback}
+    onMouseMove={selectCallback}
   >
     <FontAwesomeIcon icon={faMapMarkerAlt} color={point.color} />
     <div>
