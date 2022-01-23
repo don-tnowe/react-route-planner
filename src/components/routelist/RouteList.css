@@ -8,8 +8,7 @@
 .route-point div {
   font-size: 16px;
   display: inline-block;
-  margin: 2px;
-  margin-left: 5px;
+  margin: 3px 5px 3px 5px;
   padding: 3px;
 }
 
@@ -45,7 +44,7 @@ input:hover {
 
 .route-point-edit {
   display:flex;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .route-point-edit input {
