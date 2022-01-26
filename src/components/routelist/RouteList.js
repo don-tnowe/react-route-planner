@@ -5,7 +5,7 @@ import { getNewPointColor } from './GetNewPointColor.js';
 import './RouteList.css';
 
 
-export const RouteList = () => {
+export const RouteList = ({ mapMethods }) => {
   const [pointCount, setPointCount] = useState(0);
   const [selected, setSelected] = useState(-1);
   const [points, setPoints] = useState([]);
@@ -14,16 +14,22 @@ export const RouteList = () => {
   const addPoint = (name) => {
     if (!name)
       return;
-    setPointCount(pointCount + 1)
-    setPoints(
-      [{ key: pointCount, name: name, color: getNewPointColor(pointCount) }, ...points]
-    );
+    setPointCount(pointCount + 1);
+
+    var newPoints = [
+      { key: pointCount, name: name, color: getNewPointColor(pointCount) },
+       ...points,
+      ]
+    newPoints[0].latlng = mapMethods.getMapCenter();
+    setPoints(newPoints);
+    mapMethods.setPoints(newPoints);
   }
 
   const deleteSelectedPoint = () => {
     points.splice(selected, 1);
     setSelected(-1);
     setPoints(points);
+    mapMethods.setPoints(points);
   }
 
   const selectOrDrag = idx => {

@@ -45,6 +45,5 @@ input:active {
 
 #map-container {
     float: right;
-    width: 300px;
-    height: 300px;
+    min-height: 400px;
 }

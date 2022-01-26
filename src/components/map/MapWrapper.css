@@ -1,0 +1,10 @@
+@import '~leaflet/dist/leaflet.css';
+
+.map-container {
+  padding:5px;
+}
+
+.leaflet-container { 
+  width:400px;
+  height: 400px; 
+}
