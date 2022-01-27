@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet'
 import './MapWrapper.css';
 
@@ -17,7 +17,7 @@ export function MapWrapper({ methods }) {
     mapRef.dragging.enable();
   }
   const handleDrag = e => {
-    if (dragging != -1) {
+    if (dragging !== -1) {
       points[dragging].latlng = e.latlng;
     }
   }

@@ -33,8 +33,8 @@ export const RouteList = ({ mapMethods }) => {
   }
 
   const selectOrDrag = idx => {
-    if (idx != -1) {
-      if (selected != -1 && dragging) {
+    if (idx !== -1) {
+      if (selected !== -1 && dragging) {
         const swapBuffer = points[idx];
         points[idx] = points[selected];
         points[selected] = swapBuffer;
@@ -54,7 +54,7 @@ export const RouteList = ({ mapMethods }) => {
       type='text'
       placeholder='Enter new point...'
       onKeyDown={x => {
-        if (x.key == 'Enter') {
+        if (x.key === 'Enter') {
           addPoint(x.target.value);
           x.target.value = '';
         }
@@ -65,7 +65,7 @@ export const RouteList = ({ mapMethods }) => {
       onMouseLeave={() => selectOrDrag(-1)}
     >
       {points.map((x, i) => (
-        i != selected
+        i !== selected
           ?
           <RouteListItem
             key={i}
