@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet'
 import './MapWrapper.css';
-
-let dragging = -1;
 
 export function MapWrapper({ methods }) {
   const [points, setPoints] = useState([]);
+  const [dragging, setDragging] = useState(-1);
   const [mapRef, setMapRef] = useState();
-  const [markerDragging, setMarkerDragging] = useState(-1);
+  const [updateCount, setUpdateCount] = useState(0);
 
   const handleMouseDown = idx => {
-    setMarkerDragging(idx);
-    dragging = idx;
-    console.log('down on: '+idx);
+    setDragging(idx);
     mapRef.dragging.disable();
   }
-  const handleMouseUp = map => {
-    setMarkerDragging(-1);
-    dragging = -1;
-    console.log('гз on: '+markerDragging);
-    map.dragging.enable();
+  const handleMouseUp = () => {
+    setDragging(-1);
+    mapRef.dragging.enable();
   }
   const handleDrag = e => {
-    console.log(points);
-    console.log(dragging);
-    if (dragging != -1)
+    if (dragging != -1) {
       points[dragging].latlng = e.latlng;
+    }
   }
-
+  if (mapRef) {
+    // Events are connected here instead of whenCreated 
+    // because functions would remember old use states.
+    mapRef.off('mouseup mousemove');
+    mapRef.on('mouseup', () => handleMouseUp());
+    mapRef.on('mousemove', e => handleDrag(e));
+    methods.update = () => setUpdateCount(updateCount + 1);
+  }
   return (
     <div className='map-container'>
       <MapContainer
@@ -36,12 +37,8 @@ export function MapWrapper({ methods }) {
         scrollWheelZoom={true}
         whenCreated={map => {
           setMapRef(map);
-          // methods.setPoints = (x) => { setPoints(x); map.invalidateSize(); };
-          methods.setPoints = p => {setPoints(p)};
-          // TODO Doesn't update on delete even tho function's called
+          methods.setPoints = p => setPoints(p);
           methods.getMapCenter = () => map.getCenter();
-          map.on('mouseup', () => handleMouseUp(map));
-          map.on('mousemove', e => handleDrag(e));
         }}
       >
         <TileLayer
@@ -50,7 +47,7 @@ export function MapWrapper({ methods }) {
         />
         {points.map((x, i) => (
           <CircleMarker
-            key={i}
+            key={x.key}
             center={x.latlng}
             pathOptions={{ color: x.color }}
             eventHandlers={{
@@ -60,6 +57,10 @@ export function MapWrapper({ methods }) {
             <Popup>{x.name + ' ( id ' + i + ')'}</Popup>
           </CircleMarker>
         ))}
+        <Polyline
+          positions={points.map(x => x.latlng)}
+          pathOptions={{ color: points.length > 0 ? points[0].color : undefined }}
+        ></Polyline>
       </MapContainer>
     </div>
   )

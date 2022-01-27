@@ -29,7 +29,7 @@ export const RouteList = ({ mapMethods }) => {
     points.splice(selected, 1);
     setSelected(-1);
     setPoints(points);
-    mapMethods.setPoints(points);
+    mapMethods.update();
   }
 
   const selectOrDrag = idx => {
@@ -39,6 +39,7 @@ export const RouteList = ({ mapMethods }) => {
         points[idx] = points[selected];
         points[selected] = swapBuffer;
         setPoints(points);
+        mapMethods.update();
       }
     }
     else setDragging(false);
