@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet'
 import './MapWrapper.css';
 
-export function MapWrapper({ methods }) {
+export const MapWrapper = ({ methods }) => {
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(-1);
   const [mapRef, setMapRef] = useState();
