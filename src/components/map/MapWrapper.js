@@ -11,34 +11,40 @@ export const MapWrapper = ({ methods }) => {
 
   const addressRef = useRef();
 
+  const fetchAddress = idx => (
+    fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
+      '&lat=' + points[idx].latlng.lat +
+      '&lon=' + points[idx].latlng.lng
+    )
+      .then(response => response.json())
+      .then(data => {
+        setAddressLines([
+          (data.address.house_number || '') +
+          ' ' + (data.address.road || ''),
+          'lat. ' + data.lat,
+          'long. ' + data.lon,
+        ]);
+      }));
+      
   const handleMouseDown = idx => {
     setDragging(idx);
     mapRef.dragging.disable();
   }
+
   const handleMouseUp = () => {
     if (dragging !== -1) {
-      fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
-        '&lat=' + points[dragging].latlng.lat +
-        '&lon=' + points[dragging].latlng.lng
-      )
-        .then(response => response.json())
-        .then(data => {
-          setAddressLines([
-            (data.address.house_number || '') + 
-            ' ' + (data.address.road || ''),
-            'lat. ' + data.lat,
-            'long. ' + data.lon,
-          ]); console.log(data)
-        })
+      fetchAddress(dragging);
     }
     setDragging(-1);
     mapRef.dragging.enable();
   }
+
   const handleDrag = e => {
     if (dragging !== -1) {
       points[dragging].latlng = e.latlng;
     }
   }
+
   if (mapRef) {
     // Events are connected here instead of whenCreated 
     // because functions would remember old use states.
@@ -46,6 +52,7 @@ export const MapWrapper = ({ methods }) => {
     mapRef.on('mouseup', () => handleMouseUp());
     mapRef.on('mousemove', e => handleDrag(e));
     methods.update = () => setUpdateCount(updateCount + 1);
+    methods.displayAddressOf = idx => fetchAddress(idx);
   }
   return (
     <div className='map-container'>
