@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet'
 import './MapWrapper.css';
 
@@ -6,13 +6,31 @@ export function MapWrapper({ methods }) {
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(-1);
   const [mapRef, setMapRef] = useState();
+  const [addressLines, setAddressLines] = useState(['', '', '']);
   const [updateCount, setUpdateCount] = useState(0);
+
+  const addressRef = useRef();
 
   const handleMouseDown = idx => {
     setDragging(idx);
     mapRef.dragging.disable();
   }
   const handleMouseUp = () => {
+    if (dragging !== -1) {
+      fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
+        '&lat=' + points[dragging].latlng.lat +
+        '&lon=' + points[dragging].latlng.lng
+      )
+        .then(response => response.json())
+        .then(data => {
+          setAddressLines([
+            (data.address.house_number || '') + 
+            ' ' + (data.address.road || ''),
+            'lat. ' + data.lat,
+            'long. ' + data.lon,
+          ]); console.log(data)
+        })
+    }
     setDragging(-1);
     mapRef.dragging.enable();
   }
@@ -62,6 +80,11 @@ export function MapWrapper({ methods }) {
           pathOptions={{ color: points.length > 0 ? points[0].color : undefined }}
         ></Polyline>
       </MapContainer>
+      <div id='map-address' ref={addressRef}>
+        {addressLines.map((x, i) => (
+          <div key={i}>{x}</div>
+        ))}
+      </div>
     </div>
   )
 }

@@ -8,3 +8,7 @@
   width:400px;
   height: 400px; 
 }
+
+#map-address div{
+  text-align: left;
+}
