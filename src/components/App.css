@@ -3,7 +3,7 @@ body {
 }
 
 #content {
-    padding-top: 100px;
+    padding-top: 10px;
     padding-bottom: 100px;
     display: block;
     text-align: center;
@@ -29,21 +29,22 @@ input:active {
 
 .icon-button {
     cursor: pointer;
-    height: 20px;
     margin: 0;
+    min-height: 20px;
+    min-width: 20px;
     padding: 5px;
     text-align: center;
-    width: 20px;
 }
 
 #route-container {
-    width: 200px;
+    width: 400px;
+    max-width: 40%;
     text-align: left;
     margin-right: 25px;
-    padding-bottom: 5px;
 }
 
 #map-container {
     float: right;
     min-height: 400px;
+    max-width: 60%;
 }

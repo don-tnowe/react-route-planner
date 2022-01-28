@@ -51,8 +51,7 @@ export const RouteList = ({ mapMethods }) => {
   const setSelectionText = text => points[selected].name = text;
 
   return <>
-    <input
-      className='route-new-point'
+    <div className='route-new-point'><input
       type='text'
       placeholder='Enter new point...'
       onKeyDown={x => {
@@ -62,6 +61,7 @@ export const RouteList = ({ mapMethods }) => {
         }
       }}
     />
+    </div>
     <div
       className={dragging ? 'route-list-box-dragged' : null}
       onMouseLeave={() => selectOrDrag(-1)}

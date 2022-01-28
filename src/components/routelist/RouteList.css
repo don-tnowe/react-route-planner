@@ -2,6 +2,7 @@
 .route-point {
   font-size: 16px;
   margin-right: 5px;
+  margin-bottom: 0px;
   padding-bottom: 2px;
 }
 
@@ -15,24 +16,25 @@
 input {
   border: none;
   cursor: text;
+  float: none;
   font-size: 16px;
-  margin-left: 5px;
-  margin-right: 10px;
-  margin-bottom: 2px;
+  margin: 0 10px 2px 5px;
+  overflow: auto;
   padding: 5px;
+  width: 100%;
 }
 
 input:hover {
   box-shadow: 0 0 5px 0px #4d7bdf inset;
+  overflow: hidden;
 }
 
 .route-new-point {
-  margin: 5px;
-  margin-bottom: 10px;
-  width: 178px;
+  margin: 5px 0 5px 0;
+  padding-right: 20px;
 }
 
-.route-new-point::placeholder {
+.route-new-point input::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-style: italic;
 }
@@ -43,11 +45,14 @@ input:hover {
 }
 
 .route-point-edit {
-  display:flex;
+  display: flex;
   margin-bottom: 5px;
 }
 
+.route-point-edit div{
+  float: left;
+}
+
 .route-point-edit input {
-  width: 120px;
   margin: 0 5px 0 5px;
 }
