@@ -81,6 +81,7 @@ export const RouteList = ({ mapMethods }) => {
             onChange={setSelectionText}
             onDelete={deleteSelectedPoint}
             onDrag={setDragging}
+            onGoto={p => mapMethods.gotoSelected(p)}
           />
       ))
       }

@@ -12,7 +12,7 @@ const defaultLines = ['...', '...', '...']
 
 export const MapPointInfo = ({ methods }) => {
   const [addressLines, setAddressLines] = useState(defaultLines);
-  const [point, setPoint] = useState({ color: '#000' });
+  const [point, setPoint] = useState({ color: '#000', latlng: {lat: 0, lng: 0} });
 
   methods.displayInfoOf = pt => {
     setPoint(pt);
