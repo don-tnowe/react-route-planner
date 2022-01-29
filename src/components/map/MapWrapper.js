@@ -16,7 +16,7 @@ export const MapWrapper = ({ methods }) => {
 
   const handleMouseUp = () => {
     if (dragging !== -1) {
-      methods.displayInfoOf(points[dragging]);
+      methods.displayInfoOf(points, dragging);
     }
     setDragging(-1);
     mapRef.dragging.enable();

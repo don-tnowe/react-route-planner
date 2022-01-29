@@ -6,14 +6,23 @@
 
 .leaflet-container { 
   width: 600px;
-  height: 450px; 
+  height: 400px; 
 }
 
 .map-point-info {
   margin: 15px 0 2px 0;
 }
 
-.map-point-info div {
+.map-point-info>div {
+  display: flex;
+  align-items: center;
+}
+
+.map-point-dists {
+  display: block;
+}
+
+.map-point-dists>div {
   display: flex;
 }
 

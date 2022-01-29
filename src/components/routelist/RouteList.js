@@ -23,7 +23,7 @@ export const RouteList = ({ mapMethods }) => {
     newPoints[0].latlng = mapMethods.getMapCenter();
     setPoints(newPoints);
     mapMethods.setPoints(newPoints);
-    mapMethods.displayInfoOf(newPoints[0]);
+    mapMethods.displayInfoOf(newPoints, 0);
   }
 
   const deleteSelectedPoint = () => {
@@ -42,7 +42,7 @@ export const RouteList = ({ mapMethods }) => {
         setPoints(points);
         mapMethods.update();
       }
-      else mapMethods.displayInfoOf(points[idx]);
+      else mapMethods.displayInfoOf(points, idx);
     }
     else setDragging(false);
     setSelected(idx);
