@@ -1,31 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet'
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet';
+import { MapPointInfo } from './MapPointInfo.js';
 import './MapWrapper.css';
 
 export const MapWrapper = ({ methods }) => {
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(-1);
   const [mapRef, setMapRef] = useState();
-  const [addressLines, setAddressLines] = useState(['', '', '']);
   const [updateCount, setUpdateCount] = useState(0);
 
-  const addressRef = useRef();
-
-  const fetchAddress = idx => (
-    fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
-      '&lat=' + points[idx].latlng.lat +
-      '&lon=' + points[idx].latlng.lng
-    )
-      .then(response => response.json())
-      .then(data => {
-        setAddressLines([
-          (data.address.house_number || '') +
-          ' ' + (data.address.road || ''),
-          'lat. ' + data.lat,
-          'long. ' + data.lon,
-        ]);
-      }));
-      
   const handleMouseDown = idx => {
     setDragging(idx);
     mapRef.dragging.disable();
@@ -33,7 +16,7 @@ export const MapWrapper = ({ methods }) => {
 
   const handleMouseUp = () => {
     if (dragging !== -1) {
-      fetchAddress(dragging);
+      methods.displayInfoOf(points[dragging]);
     }
     setDragging(-1);
     mapRef.dragging.enable();
@@ -52,7 +35,6 @@ export const MapWrapper = ({ methods }) => {
     mapRef.on('mouseup', () => handleMouseUp());
     mapRef.on('mousemove', e => handleDrag(e));
     methods.update = () => setUpdateCount(updateCount + 1);
-    methods.displayAddressOf = idx => fetchAddress(idx);
   }
   return (
     <div className='map-container'>
@@ -87,11 +69,7 @@ export const MapWrapper = ({ methods }) => {
           pathOptions={{ color: points.length > 0 ? points[0].color : undefined }}
         ></Polyline>
       </MapContainer>
-      <div id='map-address' ref={addressRef}>
-        {addressLines.map((x, i) => (
-          <div key={i}>{x}</div>
-        ))}
-      </div>
+      <MapPointInfo methods={methods} />
     </div>
   )
 }

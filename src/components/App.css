@@ -36,6 +36,10 @@ input:active {
     text-align: center;
 }
 
+.icon-button-spacing {
+    min-width: 5px;
+}
+
 #route-container {
     width: 400px;
     max-width: 40%;
