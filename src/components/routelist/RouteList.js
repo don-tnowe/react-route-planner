@@ -18,8 +18,8 @@ export const RouteList = ({ mapMethods }) => {
 
     var newPoints = [
       { key: pointCount, name: name, color: getNewPointColor(pointCount) },
-       ...points,
-      ]
+      ...points,
+    ]
     newPoints[0].latlng = mapMethods.getMapCenter();
     setPoints(newPoints);
     mapMethods.setPoints(newPoints);
@@ -66,24 +66,31 @@ export const RouteList = ({ mapMethods }) => {
       className={dragging ? 'route-list-box-dragged' : null}
       onMouseLeave={() => selectOrDrag(-1)}
     >
-      {points.map((x, i) => (
-        i !== selected
+      {
+        points.length !== 0
           ?
-          <RouteListItem
-            key={i}
-            point={x}
-            selectCallback={() => selectOrDrag(i)}
-          />
+          points.map((x, i) => (
+            i !== selected
+              ?
+              <RouteListItem
+                key={i}
+                point={x}
+                selectCallback={() => selectOrDrag(i)}
+              />
+              :
+              <RoutePointEdit
+                key={i}
+                point={x}
+                onChange={setSelectionText}
+                onDelete={deleteSelectedPoint}
+                onDrag={setDragging}
+                onGoto={p => mapMethods.gotoSelected(p)}
+              />
+          ))
           :
-          <RoutePointEdit
-            key={i}
-            point={x}
-            onChange={setSelectionText}
-            onDelete={deleteSelectedPoint}
-            onDrag={setDragging}
-            onGoto={p => mapMethods.gotoSelected(p)}
-          />
-      ))
+          <div className='route-no-points'>
+            No points in your path! Type in a name in the field above, then press 'Enter'/'Return'!
+          </div>
       }
     </div>
   </>;

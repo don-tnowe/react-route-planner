@@ -35,7 +35,7 @@ input:hover {
 }
 
 .route-new-point input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: #808080;
   font-style: italic;
 }
 
@@ -46,7 +46,7 @@ input:hover {
 
 .route-point-edit {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .route-point-edit div{
@@ -55,4 +55,10 @@ input:hover {
 
 .route-point-edit input {
   margin: 0 5px 0 5px;
+}
+
+.route-no-points {
+  font-style: italic;
+  padding: 50px 25px 50px 25px;
+  text-align: center;
 }
