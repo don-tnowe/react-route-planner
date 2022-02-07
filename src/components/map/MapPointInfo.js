@@ -11,10 +11,12 @@ const icons = [
 ]
 
 const defaultLines = ['...', '...', '...']
+let fetchingIdx = -1;
 
 export const MapPointInfo = ({ methods }) => {
   const [addressLines, setAddressLines] = useState(defaultLines);
   const [point, setPoint] = useState({ color: '#fff', latlng: { lat: 0, lng: 0 } });
+  // const [fetchingIdx, setFetchingIdx] = useState(-1);
 
   methods.displayInfoOf = (pts, idx) => {
     setAddressLines(defaultLines);
@@ -22,21 +24,24 @@ export const MapPointInfo = ({ methods }) => {
     fetchAddress(pts, idx);
   };
 
-  const fetchAddress = (pts, idx) => (
+  const fetchAddress = (pts, idx) => {
+    fetchingIdx = idx;
     fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
-      '&lat=' + point.latlng.lat +
-      '&lon=' + point.latlng.lng
+      '&lat=' + pts[idx].latlng.lat +
+      '&lon=' + pts[idx].latlng.lng
     )
       .then(response => response.json())
       .then(data => {
-        setAddressLines([
-          (data.address.house_number || '') +
-          ' ' + (data.address.road || data.name),
-          ' ' + data.lat,
-          ' ' + data.lon,
-          <PointDistances pts={pts} idx={idx} />,
-        ]);
-      }));
+        if (idx === fetchingIdx)
+          setAddressLines([
+            (data.address.house_number || '') +
+            ' ' + (data.address.road || data.name),
+            ' ' + data.lat,
+            ' ' + data.lon,
+            <PointDistances pts={pts} idx={idx} />,
+          ]);
+      });
+    };
 
   return <div className='map-point-info'>
     {addressLines.map((x, i) => <div key={i}>
