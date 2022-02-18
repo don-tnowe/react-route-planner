@@ -14,18 +14,24 @@ const defaultLines = ['...', '...', '...']
 let fetchingIdx = -1;
 
 export const MapPointInfo = ({ methods }) => {
-  const [addressLines, setAddressLines] = useState(defaultLines);
+  const [address, setAddress] = useState("");
+  const [coords, setCoords] = useState(defaultLines);
   const [point, setPoint] = useState({ color: '#fff', latlng: { lat: 0, lng: 0 } });
   // const [fetchingIdx, setFetchingIdx] = useState(-1);
 
   methods.displayInfoOf = (pts, idx) => {
-    setAddressLines(defaultLines);
     setPoint(pts[idx]);
     fetchAddress(pts, idx);
   };
 
   const fetchAddress = (pts, idx) => {
     fetchingIdx = idx;
+    setCoords([
+      ' ' + pts[idx].latlng.lat,
+      ' ' + pts[idx].latlng.lng,
+      <PointDistances pts={pts} idx={idx} />,
+    ]);
+    setAddress('...');
     fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2' +
       '&lat=' + pts[idx].latlng.lat +
       '&lon=' + pts[idx].latlng.lng
@@ -33,22 +39,28 @@ export const MapPointInfo = ({ methods }) => {
       .then(response => response.json())
       .then(data => {
         if (idx === fetchingIdx)
-          setAddressLines([
-            (data.address.house_number || '') +
-            ' ' + (data.address.road || data.name),
-            ' ' + data.lat,
-            ' ' + data.lon,
-            <PointDistances pts={pts} idx={idx} />,
-          ]);
+          setAddress(
+            (data.address.house_number || '')
+            + ' '
+            + (data.address.road || data.name)
+          );
       });
-    };
+  };
 
   return <div className='map-point-info'>
-    {addressLines.map((x, i) => <div key={i}>
+    <div>
       <div className='info-icon'>
-        <FontAwesomeIcon icon={icons[i]} color={point.color} />
+        <FontAwesomeIcon icon={icons[0]} color={point.color} />
       </div>
-      {x}
-    </div>)}
+      {address || '...'}
+    </div>
+    {
+      coords.map((x, i) => <div key={i}>
+        <div className='info-icon'>
+          <FontAwesomeIcon icon={icons[i + 1]} color={point.color} />
+        </div>
+        {x}
+      </div>)
+    }
   </div>
 }
