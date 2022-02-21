@@ -9,38 +9,38 @@ const getDisplayedData = (idx, pts) => [
     point: pts[0],
     distance: calculatePathLength(pts, 0, idx),
     icon: faFlag,
-  } : {},
+  } : null,
   // Previous
   idx > 0 ? {
     point: pts[idx - 1],
     distance: calculateDistance(pts[idx - 1], pts[idx]),
     icon: faMapMarker,
-  } : {},
+  } : null,
   // Next
   idx < pts.length - 1 ? {
     point: pts[idx + 1],
     distance: calculateDistance(pts[idx], pts[idx + 1]),
     icon: faMapMarker,
-  } : {},
+  } : null,
   // Last
   idx < pts.length - 2 ? {
     point: pts[pts.length - 1],
     distance: calculatePathLength(pts, idx, pts.length - 1),
     icon: faFlag,
-  } : {},
+  } : null,
 ]
 
 export const PointDistances = ({ idx, pts }) => (
   <div className='map-point-dists'>
     {
       getDisplayedData(idx, pts).map(
-        ({ point, distance, icon }, i) => (
-          point ? (
-            <div>
-              <div className='info-icon' key={i}>
-                <FontAwesomeIcon icon={icon} color={point.color} />
+        (x, i) => (
+          x ? (
+            <div key={i}>
+              <div className='info-icon'>
+                <FontAwesomeIcon icon={x.icon} color={x.point.color} />
               </div>
-              {point.name + ': ' + Math.ceil(distance) + 'm'}
+              {x.point.name + ': ' + Math.ceil(x.distance) + 'm'}
             </div>
           ) : null
         )
