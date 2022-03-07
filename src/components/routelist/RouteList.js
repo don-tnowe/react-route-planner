@@ -34,18 +34,20 @@ export const RouteList = ({ mapMethods }) => {
   }
 
   const selectOrDrag = idx => {
-    if (idx !== -1) {
-      if (selected !== -1 && dragging) {
-        const swapBuffer = points[idx];
-        points[idx] = points[selected];
-        points[selected] = swapBuffer;
-        setPoints(points);
-        mapMethods.update();
-      }
-      else mapMethods.displayInfoOf(points, idx);
+    if (selected !== -1 && dragging) {
+      const swapBuffer = points[idx];
+      points[idx] = points[selected];
+      points[selected] = swapBuffer;
+      setPoints(points);
+      mapMethods.update();
     }
-    else setDragging(false);
+    else mapMethods.displayInfoOf(points, idx);
     setSelected(idx);
+  }
+
+  const deselect = () => {
+    setDragging(false);
+    setSelected(-1);
   }
 
   const setSelectionText = text => points[selected].name = text;
@@ -64,7 +66,7 @@ export const RouteList = ({ mapMethods }) => {
     </div>
     <div
       className={dragging ? 'route-list-box-dragged' : null}
-      onMouseLeave={() => selectOrDrag(-1)}
+      onMouseLeave={deselect}
     >
       {
         points.length !== 0
