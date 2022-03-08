@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet';
 import { MapPointInfo } from './MapPointInfo.js';
 import './MapWrapper.css';
@@ -8,7 +8,7 @@ let mapRef = null;
 export const MapWrapper = ({ methods }) => {
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(-1);
-  const [updateCount, setUpdateCount] = useState(0);
+  const [, update] = useReducer(x => x + 1, 0);
 
   const handleMouseDown = idx => {
     setDragging(idx);
@@ -35,7 +35,7 @@ export const MapWrapper = ({ methods }) => {
     mapRef.off('mouseup mousemove');
     mapRef.on('mouseup', () => handleMouseUp());
     mapRef.on('mousemove', e => handleDrag(e));
-    methods.update = () => setUpdateCount(updateCount + 1);
+    methods.update = update;
   }
 
   return (
