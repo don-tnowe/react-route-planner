@@ -31,7 +31,7 @@ export const MapWrapper = ({ methods }) => {
 
   if (mapRef) {
     // Events are connected here instead of whenCreated 
-    // because functions would remember old use states.
+    // because functions would store useState setters from past renders.
     mapRef.off('mouseup mousemove');
     mapRef.on('mouseup', () => handleMouseUp());
     mapRef.on('mousemove', e => handleDrag(e));

@@ -17,7 +17,6 @@ export const MapPointInfo = ({ methods }) => {
   const [address, setAddress] = useState("");
   const [coords, setCoords] = useState(defaultLines);
   const [point, setPoint] = useState({ color: '#fff', latlng: { lat: 0, lng: 0 } });
-  // const [fetchingIdx, setFetchingIdx] = useState(-1);
 
   methods.displayInfoOf = (pts, idx) => {
     setPoint(pts[idx]);
