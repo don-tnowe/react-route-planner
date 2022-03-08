@@ -4,9 +4,9 @@ import { RoutePointEdit } from './RoutePointEdit.js';
 import { getNewPointColor } from './GetNewPointColor.js';
 import './RouteList.css';
 
+let pointCount = 0;
 
 export const RouteList = ({ mapMethods }) => {
-  const [pointCount, setPointCount] = useState(0);
   const [selected, setSelected] = useState(-1);
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(false);
@@ -14,12 +14,12 @@ export const RouteList = ({ mapMethods }) => {
   const addPoint = (name) => {
     if (!name)
       return;
-    setPointCount(pointCount + 1);
 
     var newPoints = [
       { key: pointCount, name: name, color: getNewPointColor(pointCount) },
       ...points,
     ]
+    pointCount++;
     newPoints[0].latlng = mapMethods.getMapCenter();
     setPoints(newPoints);
     mapMethods.setPoints(newPoints);

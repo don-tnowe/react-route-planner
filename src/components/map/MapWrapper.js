@@ -3,10 +3,11 @@ import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-le
 import { MapPointInfo } from './MapPointInfo.js';
 import './MapWrapper.css';
 
+let mapRef = null;
+
 export const MapWrapper = ({ methods }) => {
   const [points, setPoints] = useState([]);
   const [dragging, setDragging] = useState(-1);
-  const [mapRef, setMapRef] = useState();
   const [updateCount, setUpdateCount] = useState(0);
 
   const handleMouseDown = idx => {
@@ -44,7 +45,7 @@ export const MapWrapper = ({ methods }) => {
         zoom={1}
         scrollWheelZoom={true}
         whenCreated={map => {
-          setMapRef(map);
+          mapRef = map;
           methods.setPoints = p => setPoints(p);
           methods.getMapCenter = () => map.getCenter();
           methods.gotoSelected = p => map.flyTo(p.latlng);
