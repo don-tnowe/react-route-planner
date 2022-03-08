@@ -29,7 +29,6 @@ export const RouteList = ({ mapMethods }) => {
   const deleteSelectedPoint = () => {
     points.splice(selected, 1);
     setSelected(-1);
-    setPoints(points);
     mapMethods.update();
   }
 
@@ -38,7 +37,6 @@ export const RouteList = ({ mapMethods }) => {
       const swapBuffer = points[idx];
       points[idx] = points[selected];
       points[selected] = swapBuffer;
-      setPoints(points);
       mapMethods.update();
     }
     else mapMethods.displayInfoOf(points, idx);
