@@ -47,7 +47,7 @@ export const MapWrapper = ({ methods }) => {
           mapRef = map;
           methods.setPoints = p => setPoints(p);
           methods.getMapCenter = () => map.getCenter();
-          methods.gotoSelected = p => map.flyTo(p.latlng);
+          methods.gotoPoint = p => map.flyTo(p.latlng);
           methods.update = update;
         }}
       >
