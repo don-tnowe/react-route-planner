@@ -35,7 +35,6 @@ export const MapWrapper = ({ methods }) => {
     mapRef.off('mouseup mousemove');
     mapRef.on('mouseup', () => handleMouseUp());
     mapRef.on('mousemove', e => handleDrag(e));
-    methods.update = update;
   }
 
   return (
@@ -49,6 +48,7 @@ export const MapWrapper = ({ methods }) => {
           methods.setPoints = p => setPoints(p);
           methods.getMapCenter = () => map.getCenter();
           methods.gotoSelected = p => map.flyTo(p.latlng);
+          methods.update = update;
         }}
       >
         <TileLayer
