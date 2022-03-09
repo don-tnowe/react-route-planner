@@ -1,6 +1,5 @@
 import React, { useState, useReducer } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from 'react-leaflet';
-import { MapPointInfo } from './MapPointInfo.js';
 import './MapWrapper.css';
 
 let mapRef = null;
@@ -38,41 +37,38 @@ export const MapWrapper = ({ methods }) => {
   }
 
   return (
-    <div className='map-container'>
-      <MapContainer
-        center={[0, 0]}
-        zoom={1}
-        scrollWheelZoom={true}
-        whenCreated={map => {
-          mapRef = map;
-          methods.setPoints = p => setPoints(p);
-          methods.getMapCenter = () => map.getCenter();
-          methods.gotoPoint = p => map.flyTo(p.latlng);
-          methods.update = update;
-        }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        />
-        {points.map((x, i) => (
-          <CircleMarker
-            key={x.key}
-            center={x.latlng}
-            pathOptions={{ color: x.color }}
-            eventHandlers={{
-              mousedown: () => handleMouseDown(i)
-            }}
-          >
-            <Popup>{x.name + ' ( id ' + i + ')'}</Popup>
-          </CircleMarker>
-        ))}
-        <Polyline
-          positions={points.map(x => x.latlng)}
-          pathOptions={{ color: points.length > 0 ? points[0].color : undefined }}
-        ></Polyline>
-      </MapContainer>
-      <MapPointInfo methods={methods} />
-    </div>
+    <MapContainer
+      center={[0, 0]}
+      zoom={1}
+      scrollWheelZoom={true}
+      whenCreated={map => {
+        mapRef = map;
+        methods.setPoints = p => setPoints(p);
+        methods.getMapCenter = () => map.getCenter();
+        methods.gotoPoint = p => map.flyTo(p.latlng);
+        methods.update = update;
+      }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      />
+      {points.map((x, i) => (
+        <CircleMarker
+          key={x.key}
+          center={x.latlng}
+          pathOptions={{ color: x.color }}
+          eventHandlers={{
+            mousedown: () => handleMouseDown(i)
+          }}
+        >
+          <Popup>{x.name + ' ( id ' + i + ')'}</Popup>
+        </CircleMarker>
+      ))}
+      <Polyline
+        positions={points.map(x => x.latlng)}
+        pathOptions={{ color: points.length > 0 ? points[0].color : undefined }}
+      ></Polyline>
+    </MapContainer>
   )
 }
